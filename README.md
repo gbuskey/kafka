@@ -26,3 +26,22 @@ Create topic. Only needed for initial setup
  docker exec -it redpanda-1 \
  rpk topic create re.polaris --brokers=localhost:9092
 ```
+
+Begin consuming messages
+
+```
+cd sdk
+go run main.go
+```
+
+Produce a message
+```
+cd producer
+go run main.go
+```
+
+Message should appear in the consumer terminal
+
+```
+2023/09/01 22:11:19 I recieved a task with value 'match'
+```

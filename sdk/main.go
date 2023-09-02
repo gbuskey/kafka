@@ -2,6 +2,7 @@ package main
 
 import (
 	"log"
+	"sdk/watcher"
 )
 
 func main() {
@@ -9,7 +10,7 @@ func main() {
 	topics := []string{"re.polaris"}
 	consumerGroup := "my-group-identifier"
 
-	watcher, err := New(seeds, topics, consumerGroup)
+	watcher, err := watcher.New(seeds, topics, consumerGroup)
 	if err != nil {
 		panic(err)
 	}
@@ -20,11 +21,11 @@ func main() {
 	watcher.ConsumeRecords(customMatcher)
 }
 
-func customMatcher(record *Record) bool {
+func customMatcher(record *watcher.Record) bool {
 	return string(record.Value) == "match"
 }
 
-func customTaskHandler(record *Record) error {
+func customTaskHandler(record *watcher.Record) error {
 	log.Default().Printf("I recieved a task with value '%s'", record.Value)
 	return nil
 }
